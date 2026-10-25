@@ -58,19 +58,10 @@ RUN apt-get update && apt-get upgrade -y \
         php8.5-imagick \
         php8.5-xdebug \
     && curl -sLS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer \
-    && COMPOSER_HOME=/usr/local/share/composer composer global require cpx/cpx:^2.0 \
-    && ln -s /usr/local/share/composer/vendor/bin/cpx /usr/local/bin/cpx \
     && curl -fsSL https://deb.nodesource.com/setup_$NODE_VERSION.x | bash - \
     && apt-get install -y nodejs \
-    && npm install -g npm pnpm bun corepack \
-    && corepack enable \
-    && corepack prepare yarn@stable --activate \
-    && npx -y playwright install-deps \
-    && curl -sS https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | tee /etc/apt/keyrings/pgdg.gpg > /dev/null \
-    && echo "deb [signed-by=/etc/apt/keyrings/pgdg.gpg] http://apt.postgresql.org/pub/repos/apt noble-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
     && apt-get update \
     && apt-get install -y $MYSQL_CLIENT \
-    && apt-get install -y postgresql-client-$POSTGRES_VERSION \
     && apt-get -y autoremove \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
